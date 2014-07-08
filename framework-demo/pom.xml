@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.bidlink</groupId>
+  <artifactId>framework-demo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>framework-demo</name>
+  <description>
+  	这是一个框架测试项目，为了学习和掌握必联最新框架。为了保持项目的简单易理解特性，
+	没有将项目的各层进行拆分，正式开发的时候，根据项目的情况，要求将项目分层进行拆分。
+  </description>
+  <dependencies>
+  	<dependency>
+	  <groupId>cn.bidlink.framework</groupId>
+	  <artifactId>framework-all</artifactId>
+	  <version>${framework.version}</version>
+	</dependency>
+	<dependency>
+	  <groupId>jstl</groupId>
+	  <artifactId>jstl</artifactId>
+	  <version>1.2</version>
+	  <exclusions>
+	  	<exclusion>
+	  		<groupId>ehcache</groupId>
+  			<artifactId>ehcache</artifactId>
+	  	</exclusion>
+	  </exclusions>
+	</dependency>
+
+	<dependency>
+	  <groupId>javax.servlet</groupId>
+	  <artifactId>servlet-api</artifactId>
+	  <scope>provided</scope>
+	  <version>2.5</version>
+	</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+	  <groupId>com.h2database</groupId>
+	  <artifactId>h2</artifactId>
+	  <version>1.3.170</version>
+	</dependency>
+	
+  </dependencies>
+  <build>
+    <finalName>framework-demo</finalName>
+  </build>
+  
+  <properties>
+  	<framework.version>0.0.1-SNAPSHOT</framework.version>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<copyright.year>2013</copyright.year>
+  </properties>
+</project>

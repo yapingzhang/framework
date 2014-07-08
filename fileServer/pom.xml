@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.bidlink.framework</groupId>
+  <artifactId>fileServer</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>fileServer Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+  <dependencies>
+		
+	<dependency>
+		      <groupId>cn.bidlink.framework</groupId>
+		      <artifactId>framework-parent</artifactId>
+		      <version>12.1.13</version>
+		      <type>pom</type>
+		      <scope>compile</scope>
+	    </dependency>
+		<dependency>
+	  			<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>1.2.2</version>
+		</dependency>
+		
+		<dependency>
+  <groupId>org.jasypt</groupId>
+  <artifactId>jasypt</artifactId>
+ <version>1.9.0</version>
+		</dependency>
+						
+		
+		<dependency>
+			  <groupId>cn.bidlink.framework</groupId>
+			  <artifactId>framework-hadoop</artifactId>
+			  <version>0.0.3-SNAPSHOT</version>
+		</dependency>
+		
+	   <dependency>
+			  <groupId>cn.bidlink.framework</groupId>
+			  <artifactId>framework-redis</artifactId>
+			  <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cn.bidlink.framework</groupId>
+			<artifactId>framework-log4j</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>log4j</groupId>
+		  <artifactId>log4j</artifactId>
+		  <version>1.2.16</version>
+		</dependency>
+		
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    
+    
+    <dependency>
+			<groupId>proxool</groupId>
+			<artifactId>proxool</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+	<dependency>
+			<groupId>proxool</groupId>
+			<artifactId>proxool-cglib</artifactId>
+			<version>1.0</version>
+	</dependency>
+	
+	<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.1.1</version>
+			<type>jar</type>
+   </dependency>	
+	
+			<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.21</version>
+		</dependency>	
+
+<dependency>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-compiler-plugin</artifactId>
+	<version>3.0</version>
+</dependency>
+
+<dependency>
+	<groupId>org.codehaus.woodstox</groupId>
+	<artifactId>wstx-asl</artifactId>
+	<version>4.0.6</version>
+</dependency>
+            
+		
+  </dependencies>
+
+	<build>
+	   <filters>
+			<filter>${build.properties.file}</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>	
+	</build>
+  
+  
+  
+  
+  <profiles>
+		<!-- 本地开发环境 -->
+		<profile>
+			<id>default</id>
+			<!-- 默认是本地开发环境 -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<build.properties.file>build.properties</build.properties.file>
+			</properties>
+		</profile>
+		<!-- 测试环境 -->
+		<profile>
+			<id>test</id>
+			<properties>
+				<build.properties.file>build.test.properties</build.properties.file>
+			</properties>
+		</profile>
+		<!-- 体验环境 -->
+		<profile>
+			<id>demo</id>
+			<properties>
+				<build.properties.file>build.demo.properties</build.properties.file>
+			</properties>
+		</profile>
+		<!-- 线上发布环境 -->
+		<profile>
+			<id>publish</id>
+			<properties>
+				<build.properties.file>build.publish.properties</build.properties.file>
+			</properties>
+		</profile>
+	</profiles>
+	
+</project>

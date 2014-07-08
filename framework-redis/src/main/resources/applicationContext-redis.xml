@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+	<context:annotation-config />
+	<aop:aspectj-autoproxy />
+	<context:component-scan base-package="cn.bidlink.framework.redis" />
+	<bean id="jedis.poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="10" />
+		<property name="maxWait" value="1000" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+
+	<bean id="redis.ShardInfo" class="cn.bidlink.framework.redis.config.RedisShardInfo">
+		<constructor-arg index="0" type="java.lang.String" value="${framework.redis.conf}" />
+	</bean>
+
+	<bean id="shardedJedisPool" class="cn.bidlink.framework.redis.config.ShardedRedisPool">
+		<constructor-arg index="0" ref="jedis.poolConfig" />
+		<constructor-arg index="1" ref="redis.ShardInfo" />
+	</bean>
+
+	<bean id="bidRedis" class="cn.bidlink.framework.redis.BidRedisImpl">
+		<property name="shardedJedisPool" ref="shardedJedisPool" />
+	</bean>
+
+	<bean id="redisCache" class="cn.bidlink.framework.redis.RedisFactory">
+		<property name="shardedJedisPool" ref="shardedJedisPool" />
+		<property name="tookTime" value="${framework.redis.took}" />
+	</bean>
+
+	<bean id="redisInterceptor" class="cn.bidlink.framework.redis.interceptor.RedisInterceptor" />
+</beans>

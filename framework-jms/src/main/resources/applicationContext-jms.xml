@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+	http://www.springframework.org/schema/jee 
+	http://www.springframework.org/schema/jee/spring-jee-3.1.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/jms
+	http://www.springframework.org/schema/jms/spring-jms-3.1.xsd">
+
+	<context:component-scan base-package="cn.bidlink.framework.jms" />
+	<context:property-placeholder location="classpath*:*.properties" ignore-unresolvable="true"  order="1" file-encoding="UTF-8" />
+	
+	<!-- 配置JMS连接工厂 -->
+	<bean id="jmsConnectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${mq.con.brokerURL}" />
+		<property name="userName" value="${mq.con.username}" />
+		<property name="password" value="${mq.con.password}" />
+        <property name="transportListener">
+			<bean class="cn.bidlink.framework.jms.listener.BidJmsTransportListener" />
+		</property>
+		<property name="exceptionListener">
+			<bean class="cn.bidlink.framework.jms.listener.BidJmsExceptionListener" />
+		</property>
+ 	</bean>
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" /> 
+	</bean>
+
+	<bean id="jmsService" class="cn.bidlink.framework.jms.impl.JmsServiceImpl">
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+   <bean id="defaultBidMessageHandler" class="cn.bidlink.framework.jms.listener.DefaultBidMessageHandler"/>  
+ 
+   <!--queue消息监听-->
+    <bean id="bidAsynQueueMsgListener" class="cn.bidlink.framework.jms.listener.BidQueueAsynMsgListener"/>  
+ 
+   <!-- queue队列 -->
+   <bean id="bidQueue" class="cn.bidlink.framework.jms.destination.BidActiveMQQueue">  
+		 <property name="desitions" value="${mq.queue.desitions}"/>
+		 <property name="receiveDlq" value="false"/>
+   </bean>  
+    
+<!--     <bean id="bidQueueListeners" class="cn.bidlink.framework.jms.listener.BidQueueListeners"> -->
+<!--            <property name="autoStart" value="${mq.queue.listener.auto.startup}"/> -->
+<!--            <property name="connectionFactory" ref="jmsConnectionFactory"/> -->
+<!--            <property name="bidActiveMQQueue" ref="bidQueue"/> -->
+<!--            <property name="sessionAcknowledgeMode" value="${mq.queue.session.acknowledge.mode}"/> -->
+<!--     </bean> -->
+ 
+ <!-- spring queue listener 配置 -->
+ 
+  <bean id="queueListener"  
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destination" ref="bidQueue" />
+		<property name="messageListener" ref="bidAsynQueueMsgListener" />
+        <property name="sessionAcknowledgeMode" value="${mq.queue.session.acknowledge.mode}"/>
+		<property name="autoStartup" value="${mq.queue.listener.auto.startup}"/>
+		<property name="receiveTimeout" value="100000"/>
+		<property name="concurrentConsumers" value="1"/>
+		<property name="maxConcurrentConsumers" value="1"/>
+		<property name="cacheLevel" value="${mq.queue.cache.level}"/>
+	</bean>  
+ 
+   <!-- ==============================先暂时注释掉topic，用户在使用时根据自己需要使用========================================= -->
+   <!--topic 队列 -->
+  <!--  <bean id="bidTopic" class="org.apache.activemq.command.ActiveMQTopic">  
+		 <constructor-arg index="0" value="${mq.topic.desition}"/>
+   </bean>   -->
+   
+   <!--topic 消息监听-->
+  <!--  <bean id="bidTopicAsynMsgListener" class="cn.bidlink.framework.jms.listener.BidTopicAsynMsgListener"/>   -->
+   
+    <!-- <bean id="bidTopicListeners" class="cn.bidlink.framework.jms.listener.BidTopicListeners">
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+        <property name="destination" ref="bidTopic"/>
+        <property name="sessionAcknowledgeMode" value="${mq.topic.session.acknowledge.mode}"/>
+        <property name="autoStart" value="${mq.topic.listener.auto.startup}"/>
+        <property name="clientId" value="${mq.topic.listener.clientId}"/>
+        <property name="durableSubscriptionName" value="${mq.topic.desition.durable.subscriber.name}"/>
+        <property name="durableSubscriber" value="${mq.topic.isDurableSubscriber}"/>
+    </bean> -->
+    
+ <!-- spring topic listener 配置 -->   
+  <!--   <bean id="taskExecutor" class="org.springframework.core.task.SimpleAsyncTaskExecutor" /> 
+   <bean id="topicListener" 
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="pubSubDomain" value="true" />
+		<property name="destination" ref="bidTopic" />
+		<property name="receiveTimeout" value="100000" />
+        <property name="recoveryInterval" value="3000"/>
+        <property name="taskExecutor" ref="taskExecutor" />
+		<property name="messageListener" ref="bidTopicAsynMsgListener" />
+		<property name="sessionAcknowledgeMode" value="${mq.topic.session.acknowledge.mode}"/>
+		<property name="autoStartup" value="${mq.topic.listener.auto.startup}"/>
+		 <property name="clientId" value="${mq.topic.listener.clientId}" />
+		<property name="durableSubscriptionName" value="${mq.topic.desition.durable.subscriber.name}" />
+	</bean>  -->
+	
+	
+</beans>

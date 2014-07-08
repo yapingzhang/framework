@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="consoleInfoLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} - %m - [%C]%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="INFO" />
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+
+	<appender name="consoleDebugLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} - %m - [%C]%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="DEBUG" />
+			<param name="LevelMin" value="DEBUG" />
+		</filter>
+	</appender>
+
+	<appender name="consoleErrorLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} - %m - [%C]%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+
+	<appender name="traceLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/framework_webapp_trace" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} - %m - [%C]%n" />
+		</layout>
+	</appender>
+
+	<appender name="debugLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/framework_webapp_debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} - %m - [%C]%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="DEBUG" />
+			<param name="LevelMin" value="DEBUG" />
+		</filter>
+	</appender>
+
+	<appender name="infoLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/framework_webapp_info" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} - %m - [%C]%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="INFO" />
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+
+	<appender name="warnLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/framework_webapp_warn" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} - %m - [%C]%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="WARN" />
+			<param name="LevelMin" value="WARN" />
+		</filter>
+	</appender>
+
+	<appender name="errorLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Append" value="true" />
+		<param name="Encoding" value="UTF-8" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
+		<param name="File" value="${catalina.base}/logs/framework_webapp_error" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} - %m - [%C]%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+
+	<appender name="operateLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="cn.bidlink.framework.log4j.layout.ExtendedPatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} h:%H - v:%V - ip:%I - %m%n" />
+		</layout>
+		<filter class="cn.bidlink.framework.log4j.varia.ExtendedFilter">
+			<param name="LevelMax" value="20050" />
+			<param name="LevelMin" value="20050" />
+		</filter>
+	</appender>
+
+	<appender name="operateAppender"
+		class="cn.bidlink.framework.log4j.appender.SynMongodExtendedAppender">
+		<!-- 是否开始cpu内存监控 -->
+		<param name="jvmMonitor" value="true" />
+		<!-- 数据库名称 -->
+		<param name="databaseName" value="logmongod" />
+		<!-- 数据库表名 -->
+		<param name="collectionName" value="usetest" />
+		<param name="hostnamePort" value="${mongo.stnamePort}" />
+		<!-- 数据库用户名 -->
+		<param name="userName" value="root" />
+		<!-- 数据库密码 -->
+		<param name="password" value="root" />
+		<!-- 应用标识 -->
+		<param name="appCode" value="4" />
+		<!-- 需要拦截的日志级别 -->
+		<filter class="cn.bidlink.framework.log4j.varia.ExtendedFilter">
+			<param name="LevelMax" value="20050" />
+			<param name="LevelMin" value="20050" />
+		</filter>
+	</appender>
+	
+	<appender name="operateError"
+		class="cn.bidlink.framework.log4j.appender.SynMongodExtendedAppender">
+		<!-- 是否开始cpu内存监控 -->
+		<param name="jvmMonitor" value="true" />
+		<!-- 数据库名称 -->
+		<param name="databaseName" value="logmongod" />
+		<!-- 数据库表名 -->
+		<param name="collectionName" value="usetest" />
+		<param name="hostnamePort" value="${mongo.stnamePort}" />
+		<!-- 数据库用户名 -->
+		<param name="userName" value="root" />
+		<!-- 数据库密码 -->
+		<param name="password" value="root" />
+		<!-- 应用标识 -->
+		<param name="appCode" value="4" />
+		<!-- 需要拦截的日志级别 -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+
+	<root>
+		<appender-ref ref="consoleErrorLog" />
+	</root>
+
+
+	<!-- 记录该包下所有日志 -->
+	<logger name="cn.bidlink">
+		<appender-ref ref="consoleInfoLog" />
+		<appender-ref ref="consoleErrorLog" />
+		<appender-ref ref="operateLog" />
+		<appender-ref ref="operateAppender" />
+		<appender-ref ref="operateError" />
+		<!-- <appender-ref ref="consoleDebugLog" /> -->
+		<!-- <appender-ref ref="infoLog" /> -->
+		<!-- <appender-ref ref="warnLog" /> -->
+		<!--<appender-ref ref="errorLog" /> -->
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="ALL" />
+		<!-- <appender-ref ref="consoleInfoLog" /> -->
+		<!-- <appender-ref ref="consoleDebugLog" /> -->
+	</logger>
+	<logger name="java.sql">
+		<level value="ALL" />
+		<appender-ref ref="consoleInfoLog" />
+		<appender-ref ref="consoleDebugLog" />
+	</logger>
+</log4j:configuration>

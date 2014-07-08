@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="application-common.properties">
+    </properties>
+    <typeAliases>
+        <typeAlias type="cn.bidlink.fileserver.db.ProxoolDataSourceFactory" alias="PROXOOL"/>
+    </typeAliases>
+    
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="PROXOOL">
+               		<property name="alias" value="${proxool.alias}" />
+		<property name="driver" value="${proxool.driver}" />
+		<property name="driverUrl" value="${proxool.driverUrl}" />
+		<property name="user" value="${proxool.user}" />
+		<property name="password" value="${proxool.password}" />
+		<property name="prototypeCount" value="${proxool.prototypeCount}" />
+		<property name="maximumConnectionCount" value="${proxool.maximumConnectionCount}" />
+		<property name="minimumConnectionCount" value="${proxool.minimumConnectionCount}" />
+		<property name="trace" value="${proxool.trace}" />
+		<property name="verbose" value="${proxool.verbose}" />
+		<property name="statistics" value="${proxool.statistics}" />
+		<property name="simultaneousBuildThrottle" value="${proxool.simultaneousBuildThrottle}" />
+		<property name="maximumActiveTime" value="${proxool.maximumActiveTime}" />
+		<property name="maximumConnectionLifetime" value="${proxool.maximumConnectionLifetime}" />
+		<property name="testBeforeUse" value="${proxool.testBeforeUse}" />
+		<property name="houseKeepingSleepTime" value="${proxool.houseKeepingSleepTime}" />
+		<property name="houseKeepingTestSql" value="${proxool.houseKeepingTestSql}" />
+		<property name="overloadWithoutRefusalLifetime" value="${proxool.overloadWithoutRefusalLifetime}" />
+		<property name="recentlyStartedThreshold" value="${proxool.recentlyStartedThreshold}" />
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <mappers>
+        <mapper resource="cn/bidlink/fileserver/fileInfo/dao/mapper/FileInfoMapper.xml"/>
+        
+    </mappers>
+</configuration>

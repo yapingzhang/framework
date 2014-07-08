@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DBUnit flatXml DataFile -->
+<dataset>
+    <demo ID='1' NAME='NAME1' PHONE='PHONE1' ADDRESS='ADDRESS1' REVIEW='1'/>
+    <DEMO ID='2' NAME='NAME2' PHONE='PHONE2' ADDRESS='ADDRESS2' REVIEW='0'/>
+    <DEMO ID='3' NAME='NAME3' PHONE='PHONE3' ADDRESS='ADDRESS3' REVIEW='1'/>
+</dataset>

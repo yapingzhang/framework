@@ -1,0 +1,161 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- <parent> -->
+	<!-- <artifactId>framework-parent</artifactId> -->
+	<!-- <groupId>cn.bidlink.framework</groupId> -->
+	<!-- <version>0.0.1-SNAPSHOT</version> -->
+	<!-- <relativePath>..</relativePath> -->
+	<!-- </parent> -->
+
+	<groupId>cn.bidlink.framework</groupId>
+	<artifactId>framework-all-small</artifactId>
+	<name>framework-all-small</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<description>精简版本</description>
+	
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<url>http://192.168.0.249:8081/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<url>http://192.168.0.249:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<site>
+			<id>framework-site</id>
+			<url>file:///opt/hudson-tomcat-6.0.26/webapps/framework-site</url>
+		</site>
+	</distributionManagement>
+	
+	
+	<properties>
+		<framework.all.version>${project.version}</framework.all.version>
+		<dubbo.small.version>2.5.4-small-SNAPSHOT</dubbo.small.version>
+		<copyright.year>2012</copyright.year>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>cn.bidlink.framework</groupId>
+			<artifactId>framework-all</artifactId>
+			<version>${framework.all.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>cn.bidlink.framework</groupId>
+					<artifactId>framework-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>dubbo</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-frontend-jaxws</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-transports-http</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-ws-security</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-frontend-simple</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-rt-ws-security</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>com.googlecode.xmemcached</groupId>
+					<artifactId>xmemcached</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.thrift</groupId>
+					<artifactId>libthrift</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>jline</groupId>
+					<artifactId>jline</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-config</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-core</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-web</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-remoting</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>${dubbo.small.version}</version>
+			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty-util</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
+	</build>
+</project>

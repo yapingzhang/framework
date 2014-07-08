@@ -1,0 +1,163 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>framework-parent</artifactId>
+		<groupId>cn.bidlink.framework</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<artifactId>framework-web</artifactId>
+	<name>framework-web</name>
+	<description>框架前端web通类(如:SpringMVC)</description>
+
+
+	<properties>
+		<framework.core.version>${project.version}</framework.core.version>
+		<framework.dao.version>${project.version}</framework.dao.version>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>cn.bidlink.framework</groupId>
+			<artifactId>framework-log4j</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.bidlink.framework</groupId>
+			<artifactId>framework-core</artifactId>
+			<version>${framework.core.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.bidlink.framework</groupId>
+			<artifactId>framework-dao</artifactId>
+			<version>${framework.dao.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-cas</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache</artifactId>
+				</exclusion>
+
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-cas-client</artifactId>
+			<version>${spring.security.cas.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jasig.cas</groupId>
+					<artifactId>cas-client-core</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-tx</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-test</artifactId>
+				</exclusion>
+
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache</artifactId>
+				</exclusion>
+
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.bidlink.framework</groupId>
+			<artifactId>framework-pmp</artifactId>
+			<version>2012.03.44-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+				<!-- <exclusion> -->
+				<!-- <groupId>cn.bidlink.framework</groupId> -->
+				<!-- <artifactId>framework-core</artifactId> -->
+				<!-- </exclusion> -->
+				<!-- <exclusion> -->
+				<!-- <groupId>cn.bidlink.framework</groupId> -->
+				<!-- <artifactId>framework-web</artifactId> -->
+				<!-- </exclusion> -->
+
+				<!-- <exclusion> -->
+				<!-- <groupId>cn.bidlink.framework</groupId> -->
+				<!-- <artifactId>framework-dao-ibatis</artifactId> -->
+				<!-- </exclusion> -->
+
+				<!-- <exclusion> -->
+				<!-- <groupId>cn.bidlink.framework</groupId> -->
+				<!-- <artifactId>framework-webservice-cxf</artifactId> -->
+				<!-- </exclusion> -->
+
+				<!-- <exclusion> -->
+				<!-- <groupId>cn.bidlink.framework</groupId> -->
+				<!-- <artifactId>framework-webservice-xfire</artifactId> -->
+				<!-- </exclusion> -->
+				<!-- <exclusion> -->
+				<!-- <groupId>cn.bidlink.framework</groupId> -->
+				<!-- <artifactId>framework-hadoop</artifactId> -->
+				<!-- </exclusion> -->
+
+				<!-- <exclusion> -->
+				<!-- <groupId>org.codehaus.xfire</groupId> -->
+				<!-- <artifactId>xfire-all</artifactId> -->
+				<!-- </exclusion> -->
+				<!-- <exclusion> -->
+				<!-- <groupId>cn.bidlink.framework</groupId> -->
+				<!-- <artifactId>pmp-baseInfo-webservice</artifactId> -->
+				<!-- </exclusion> -->
+
+				<!-- <exclusion> -->
+				<!-- <groupId>net.sf.ehcache</groupId> -->
+				<!-- <artifactId>ehcache</artifactId> -->
+				<!-- </exclusion> -->
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>cn.bidlink.portal</groupId>
+			<artifactId>pmp-baseInfo-api</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

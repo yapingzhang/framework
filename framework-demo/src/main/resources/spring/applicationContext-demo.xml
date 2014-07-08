@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx" 
+	   xmlns:jee="http://www.springframework.org/schema/jee"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+					       http://www.springframework.org/schema/context 
+					       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						   http://www.springframework.org/schema/aop 
+						   http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+					       http://www.springframework.org/schema/tx 
+					       http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+					       http://www.springframework.org/schema/jee 
+					       http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+						   http://www.springframework.org/schema/jdbc 
+						   http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd 
+					       http://www.springframework.org/schema/mvc
+					       http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+	<!-- 引入框架的配置信息 -->
+	<import resource="classpath:applicationContext-framework-no-cxf.xml" />
+	
+	<!-- 【启用注解】 -->
+	<context:annotation-config />
+	<!-- 【扫描包】 -->
+	<context:component-scan base-package="cn.bidlink.demo">
+		<!-- 【排除包】 -->
+		<!-- <context:exclude-filter type="regex" expression="xx.xxx.xxx" /> -->
+	</context:component-scan>
+	
+	
+	<!-- 创建数据源 -->
+	<bean id="demoDataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="${jdbc.driver01}" />
+		<property name="url" value="${jdbc.url01}" />
+		<property name="username" value="${jdbc.username01}" />
+		<property name="password" value="${jdbc.password01}" />
+	</bean>
+	
+	<!-- 运行脚本初始化内存数据库 -->
+	<jdbc:initialize-database data-source="demoDataSource" ignore-failures="ALL">
+		<jdbc:script location="classpath:sql/ddl.sql"/>
+	</jdbc:initialize-database>
+
+	<bean id="dataSource" class="cn.bidlink.framework.dao.dataSource.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="demo" value-ref="demoDataSource" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="demoDataSource" />
+	</bean>
+	
+</beans>

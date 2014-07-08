@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="operateLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="cn.bidlink.framework.log4j.layout.ExtendedPatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} h:%H - v:%V - ip:%I - %m%n" />
+		</layout>
+		<filter class="cn.bidlink.framework.log4j.varia.ExtendedFilter">
+			<param name="LevelMax" value="20050" />
+			<param name="LevelMin" value="20050" />
+		</filter>
+	</appender>
+	<appender name="infoLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="cn.bidlink.framework.log4j.layout.ExtendedPatternLayout">
+			<param name="ConversionPattern" value="[%-3p] %C{1} h:%H - v:%V - ip:%I - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="INFO" />
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+	<appender name="operateAppender"
+		class="cn.bidlink.framework.log4j.appender.SynMongodExtendedAppender">
+		<param name="jvmMonitor" value="true" />
+		<param name="databaseName" value="logmongod" />
+		<param name="collectionName" value="usetest" />
+		<param name="hostnamePort" value="192.168.0.107:47017" />
+		<param name="userName" value="root" />
+		<param name="password" value="root" />
+		<param name="appCode" value="" />
+		<filter class="cn.bidlink.framework.log4j.varia.ExtendedFilter">
+			<param name="LevelMax" value="20050" />
+			<param name="LevelMin" value="20050" />
+		</filter>
+	</appender>
+	<logger name="cn.bidlink">
+		<appender-ref ref="operateLog" />
+		<appender-ref ref="infoLog" />
+		<appender-ref ref="operateAppender" />
+	</logger>
+</log4j:configuration>

@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2001-2013 Bidlink(Beijing) E-Biz Tech Co.,Ltd.
+ * All rights reserved.
+ * 必联（北京）电子商务科技有限公司 版权所有
+ */
+package cn.bidlink.framework.test.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import cn.bidlink.framework.test.service.ServiceExample2;
+
+/**
+ * @description: 测试.
+ * @version Ver 1.0
+ * @author <a href="mailto:wangtao@ebnew.com">wangtao</a>
+ * @Date 2013-9-30 下午12:58:39
+ */
+@Service
+public class ServiceExample2Impl implements ServiceExample2 {
+
+	@Override
+	public Long getLong(Long ret) {
+		return ret;
+	}
+}

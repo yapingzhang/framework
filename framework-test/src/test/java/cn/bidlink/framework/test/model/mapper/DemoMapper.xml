@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="cn.bidlink.framework.test.model.Demo">
+
+	<resultMap id="RM_Demo" type="cn.bidlink.framework.test.model.Demo">
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="phone" column="PHONE" />
+		<result property="address" column="ADDRESS" />
+		<result property="review" column="REVIEW" />
+
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		ID,NAME,PHONE,ADDRESS,REVIEW
+	    ]]>
+	</sql>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO DEMO (
+        	ID,
+        	NAME,
+        	PHONE,
+        	ADDRESS,
+        	REVIEW 
+        ) VALUES (
+        	#{id} ,
+        	#{name} ,
+        	#{phone} ,
+        	#{address} ,
+        	#{review}  
+        )
+    ]]>
+	</insert>
+
+	<select id="getById" resultMap="RM_Demo">
+		SELECT
+		<include refid="columns" />
+	    <![CDATA[
+		    FROM DEMO 
+	        WHERE 
+		       ID = #{id} 
+	    ]]>
+	</select>
+
+	<select id="findPage" resultMap="RM_Demo">
+		SELECT
+		<include refid="columns" />
+		FROM DEMO
+	</select>
+</mapper>
+
